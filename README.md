@@ -1,12 +1,36 @@
-chai-subset [![npm version](https://badge.fury.io/js/chai-subset.svg)](https://badge.fury.io/js/chai-subset) [![Build Status](https://travis-ci.org/debitoor/chai-subset.svg?branch=master)](https://travis-ci.org/debitoor/chai-subset) [![devDependency Status](https://david-dm.org/debitoor/chai-subset/dev-status.svg)](https://david-dm.org/debitoor/chai-subset#info=devDependencies) [![Coverage Status](https://coveralls.io/repos/debitoor/chai-subset/badge.svg?service=github)](https://coveralls.io/github/debitoor/chai-subset) [![NSP Status](https://nodesecurity.io/orgs/debitoor/projects/eb6fec04-2b26-4462-b4ff-08d952da3065/badge)](https://nodesecurity.io/orgs/debitoor/projects/eb6fec04-2b26-4462-b4ff-08d952da3065)
-===========
+Fork Information
+================
+
+I was searching for an subset test which can handle arrays in any order. `chai-subset` was the one that worked. But the messages are meaningless. Like this one:
+
+```text
+expected { Object (key1, key2, ...) } to contain subset { Object (key1) }
+```
+
+It would be better to show what exactky the difference is. I have tried some other libraries, but no one was suitable for me:
+
+- chai-deep-match, chai-samsam: Cannot check array of objects in any order and no detailed diff (just like chai-subset saying something like that an object expecting another object, no different values shown)
+- chai-better-shallow-deep-equal: Cannot check array of objects in any order and very messy assertion error message
+- chai-match-pattern: Could work, but cannot use patterns with partial notation "..." to reach my goal
+- chai-shallow-deep-equal: Cannot check array of objects in any order, but very nice assertion error which display only the (first) relevant difference
+
+So I tried to take on the coding pattern from "chai-shallow-deep-equal" and integrate it into "chai-subset".
+
+Now the assertion messages should be better readable like:
+
+```text
+Expected to have "some_value" but got "other_value" at path "/key1/key2"
+```
+
+@thiscode/chai-subset
+=====================
 
 "containSubset" object properties matcher for [Chai](http://chaijs.com/) assertion library
 
 Installation
 ===========
 
-`npm install --save-dev chai-subset`
+`npm install --save-dev @thiscode/chai-subset`
 
 Usage
 =====
@@ -14,7 +38,7 @@ Usage
 common.js
 ```js
 var chai = require('chai');
-var chaiSubset = require('chai-subset');
+var chaiSubset = require('@thiscode/chai-subset');
 chai.use(chaiSubset);
 ```
 
